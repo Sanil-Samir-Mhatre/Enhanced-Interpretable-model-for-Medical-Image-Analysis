@@ -10,7 +10,7 @@ from skimage.segmentation import mark_boundaries, slic
 import warnings
 
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+SCRIPT_DIR = os.path.dirname(os.path.abspath(_file_))
 
 def make_gradcam_heatmap(grad_model, img_array, pred_index=None):
     with tf.GradientTape() as tape:
@@ -125,7 +125,7 @@ st.header("Severity Analysis of Osteoarthritis in the Knee")
 
 st.markdown("""
 This application analyzes knee X-ray images to predict the severity of osteoarthritis based on the Kellgren-Lawrence (KL) grading system. 
-The underlying deep learning model is an **Xception** model, which achieves a **Balanced Accuracy of 67%** on the test dataset.
+The underlying deep learning model is an *Xception* model, which achieves a *Balanced Accuracy of 67%* on the test dataset.
 """)
 
 with st.expander("See other model performances"):
@@ -133,7 +133,7 @@ with st.expander("See other model performances"):
     | Model                           | Balanced Accuracy |
     | ------------------------------- | ----------------- |
     | Ensemble (f1-score weighted)    | 68.69%            |
-    | **Xception fine-tuning**        | **67%**           |
+    | *Xception fine-tuning*        | *67%*           |
     | ResNet50 fine-tuning            | 65%               |
     | Inception-ResNet-v2 fine-tuning | 64%               |
     """)
@@ -192,7 +192,7 @@ if uploaded_file is not None:
             # Integrated Gradients Explanation
             st.subheader("Integrated Gradients Explanation")
             st.info(
-                '**Integrated Gradients answers:** "Which pixels were most influential in the final prediction?" It provides a fine-grained attribution map by integrating gradients along a path from a baseline (black image) to the input image.'
+                '*Integrated Gradients answers:* "Which pixels were most influential in the final prediction?" It provides a fine-grained attribution map by integrating gradients along a path from a baseline (black image) to the input image.'
             )
             with st.spinner("Calculating Integrated Gradients..."):
                 # The model expects preprocessed input
@@ -210,7 +210,7 @@ if uploaded_file is not None:
         with col2:
             st.subheader("Explanation using GradCam Heatmaps")
             st.info(
-                '**Grad-CAM answers:** "Where in the image did the final convolutional neurons fire the most intensely for this prediction?" It\'s a direct look at the model\'s internal state—a heat map of attention.'
+                '*Grad-CAM answers:* "Where in the image did the final convolutional neurons fire the most intensely for this prediction?" It\'s a direct look at the model\'s internal state—a heat map of attention.'
             )
             heatmap = make_gradcam_heatmap(grad_model, st.session_state.img_array)            
             gradcam_image = save_and_display_gradcam(original_image, heatmap)
@@ -219,13 +219,13 @@ if uploaded_file is not None:
             st.subheader("Analysis")
             y_pred_for_chart = st.session_state.y_pred
             kl_grade = np.argmax(y_pred_for_chart)
-            st.write(f"The predicted KL Grade is: **{kl_grade}**")
+            st.write(f"The predicted KL Grade is: *{kl_grade}*")
             st.caption("KL Grade ranges from 0 (Healthy) to 4 (Severe).")
             
             # LIME Explanation
             st.subheader("Superpixel-based Explanation")
             st.info(
-                '**This method answers:** "Which high-level features (superpixels), if removed, would change the prediction the most?" It provides a feature-importance ranking, which is a different and often more human-intuitive form of explanation.'
+                '*This method answers:* "Which high-level features (superpixels), if removed, would change the prediction the most?" It provides a feature-importance ranking, which is a different and often more human-intuitive form of explanation.'
             )
 
             # Add a placeholder for the progress bar and status text
@@ -274,11 +274,11 @@ if uploaded_file is not None:
 st.markdown("---")
 st.subheader("Kellgren-Lawrence (KL) Grade Descriptions")
 st.markdown("""
-*   *Grade 0 (Healthy):* Healthy knee image.
-*   *Grade 1 (Doubtful):* Doubtful joint narrowing with possible osteophytic lipping.
-*   *Grade 2 (Minimal):* Definite presence of osteophytes and possible joint space narrowing.
-*   *Grade 3 (Moderate):* Multiple osteophytes, definite joint space narrowing, with mild sclerosis.
-*   *Grade 4 (Severe):* Large osteophytes, significant joint narrowing, and severe sclerosis.
+*   Grade 0 (Healthy): Healthy knee image.
+*   Grade 1 (Doubtful): Doubtful joint narrowing with possible osteophytic lipping.
+*   Grade 2 (Minimal): Definite presence of osteophytes and possible joint space narrowing.
+*   Grade 3 (Moderate): Multiple osteophytes, definite joint space narrowing, with mild sclerosis.
+*   Grade 4 (Severe): Large osteophytes, significant joint narrowing, and severe sclerosis.
 """)
 
 st.markdown("---")
@@ -287,9 +287,9 @@ st.markdown("""
 The integration of three distinct explainability techniques—Grad-CAM, Integrated Gradients, and Superpixel Analysis (LIME)—is crucial for building a transparent and trustworthy diagnostic aid. By implementing these XAI methods, we move beyond "black box" predictions and provide insights into the model's decision-making process.
 
 For doctors, this transparency is invaluable. It allows them to:
-*   **Verify Predictions:** Clinicians can cross-reference the model's highlighted regions (via heatmaps and masks) with their own expert assessment of the X-ray, confirming if the model is focusing on clinically relevant features like joint space narrowing or osteophytes.
-*   **Build Confidence:** Seeing *why* a prediction was made helps build trust in the tool. If the explanations are nonsensical, it signals that the prediction may be unreliable.
-*   **Gain New Insights:** The model might identify subtle patterns that are not immediately obvious, offering a new perspective for the clinician to consider.
+*   *Verify Predictions:* Clinicians can cross-reference the model's highlighted regions (via heatmaps and masks) with their own expert assessment of the X-ray, confirming if the model is focusing on clinically relevant features like joint space narrowing or osteophytes.
+*   *Build Confidence:* Seeing why a prediction was made helps build trust in the tool. If the explanations are nonsensical, it signals that the prediction may be unreliable.
+*   *Gain New Insights:* The model might identify subtle patterns that are not immediately obvious, offering a new perspective for the clinician to consider.
 
 Ultimately, providing these explanations transforms the application from a simple prediction tool into a collaborative partner, augmenting a doctor's expertise rather than just offering an opinion.
 """)
