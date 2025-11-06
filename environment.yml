@@ -1,17 +1,28 @@
 name: knee_dl_app
 channels:
   - conda-forge
+  - anaconda
 dependencies:
+  - intel-openmp
+  - jupyter=1.0.0
+  - matplotlib=3.6
   - python=3.9
   - numpy=1.23.3
   - tensorflow=2.10.0
   - matplotlib=3.6.0 # Pinned for compatibility
   - pandas=1.5.0
+  - python=3.9
   - scikit-image=0.19.3
   - scikit-learn=1.1.2
   - seaborn=0.11.2
+  - tensorflow=2.10.0
+  - pip=22.3.1
   - streamlit
   - lime
   - shap
   - pip:
+    - numpy==1.23.3 # Pin numpy version for tensorflow 2.10 compatibility
+    - streamlit
+    - lime
+    - shap
     - Pillow==9.2.0 # Pin Pillow version for compatibility with other libraries
