@@ -10,7 +10,7 @@ from skimage.segmentation import mark_boundaries, slic
 import warnings
 
 
-SCRIPT_DIR = os.path.dirname(os.path.abspath(_file_))
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 
 def make_gradcam_heatmap(grad_model, img_array, pred_index=None):
     with tf.GradientTape() as tape:
