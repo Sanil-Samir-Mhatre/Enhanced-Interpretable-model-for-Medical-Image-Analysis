@@ -1,0 +1,73 @@
+streamlit run app/app.py
+
+conda activate knee_dl_app
+
+conda env create -f environment.yml
+
+cd C:\Users\Admin\OneDrive\Desktop\ML\knee_OA_dl_app-main
+
+
+
+
+
+............................................................................................
+Let's go through the complete, clean process from the very beginning to get your project, including the large model file, uploaded to a new GitHub repository.
+
+This is the safest method and will avoid all the errors you've seen before.
+
+Step 1: Clean Up Your Local Project Folder
+First, we need to remove the old, broken Git configuration from your project directory. This will not delete any of your code or model files.
+
+Open your Git Bash terminal and run these commands one by one:
+
+bash
+# 1. Navigate to your project directory
+cd "c:/Users/Admin/OneDrive/Desktop/ML/knee_OA_dl_app-main"
+
+# 2. Remove the old, hidden .git folder to ensure a fresh start
+rm -rf .git
+After running the rm -rf .git command, you should see that the (main) text disappears from your terminal prompt. This confirms the old repository is gone.
+
+Step 2: Create a New, Empty Repository on GitHub
+Now, let's create a brand new, clean repository on the GitHub website.
+
+Go to GitHub.com and log in.
+In the top-right corner, click the + icon and select New repository.
+For "Repository name", you can use something like Enhanced-Interpretable-model-for-Medical-Image-Analysis.
+Ensure the repository is set to Public.
+Important: Do NOT check any boxes to add a README, .gitignore, or license. The repository must be completely empty.
+Click Create repository.
+On the next page, GitHub will show you a URL. Copy the HTTPS URL. It will look like this: https://github.com/Sanil-Samir-Mhatre/Enhanced-Interpretable-model-for-Medical-Image-Analysis.git
+Step 3: Upload Your Project Using Git LFS
+Now, go back to your Git Bash terminal. You should still be in your knee_OA_dl_app-main project directory. Run these commands one by one to initialize a new repository and upload your files.
+
+bash
+# 1. Initialize a new, empty Git repository
+git init
+
+# 2. Set up Git LFS (Large File Storage) in the new repository
+git lfs install
+
+# 3. Tell Git LFS which file types to track. This creates a .gitattributes file.
+# Based on your project, this should be the .hdf5 model file.
+git lfs track "src/models/*.hdf5"
+
+# 4. Add ALL your project files to be tracked by Git.
+# The dot '.' means everything in the current folder.
+git add .
+
+# 5. Create your first commit with a descriptive message
+git commit -m "Initial project commit with Streamlit app and LFS model"
+
+# 6. Link your local repository to the new one you created on GitHub.
+# PASTE THE URL you copied from GitHub here.
+git remote add origin https://github.com/Sanil-Samir-Mhatre/Enhanced-Interpretable-model-for-Medical-Image-Analysis.git
+
+# 7. Push your committed files to GitHub.
+# The '-u' flag sets this as the default for future pushes.
+git push -u origin master
+Note: Your default branch might be named main instead of master. If the final git push command fails with an error like src refspec main does not match any, simply run this command instead:
+
+bash
+git push -u origin main
+After these steps, your entire project, with the large model file correctly handled by Git LFS, will be on your new GitHub repository.
