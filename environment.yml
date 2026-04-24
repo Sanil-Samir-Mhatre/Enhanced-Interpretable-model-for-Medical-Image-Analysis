@@ -4,16 +4,14 @@ channels:
   - anaconda
 dependencies:
   - python=3.9
-  - pip
   - tensorflow=2.10.0
-  - numpy=1.23.3
+  - numpy<2.0
   - matplotlib=3.6.0
   - pandas=1.5.0
   - scikit-image=0.19.3
   - scikit-learn=1.1.2
   - seaborn=0.11.2
-  - pip:
-    - streamlit
-    - lime
-    - shap
-    - Pillow==9.2.0
+  - pillow=9.4.0
+  - streamlit
+  - lime
+  - altair

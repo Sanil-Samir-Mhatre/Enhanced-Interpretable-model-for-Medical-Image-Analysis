@@ -253,11 +253,17 @@ classes.
 
 #### Explainability
 
-We implemented two explainability techniques, **Grad-CAM** and **LIME**, to
+We implemented several state-of-the-art explainability techniques to
 better understand how classes are classified.
 
 - **Grad-CAM** answers: "Where in the image did the final convolutional neurons fire the most intensely for this prediction?" It's a direct look at the model's internal state—a heat map of attention.
+- **Integrated Gradients (IG)** answers: "Which specific pixels were most influential?" It provides a mathematically rigorous, fine-grained attribution map highlighting exact pixels that drove the prediction.
 - **LIME** answers: "Which high-level features (superpixels), if removed, would change the prediction the most?" It provides a feature-importance ranking, which is a different and often more human-intuitive form of explanation.
+- **Hybrid XAI #1 (Grad-CAM + IG)** answers: "How can we combine high-level regional focus with pixel-perfect attribution?" It bridges spatial localization with attribution precision by finding the most important pixels specifically within the regions the model focused on broadly.
+- **Hybrid XAI #2 (IG + LIME)** answers: "How can we isolate the exact influential pixels within the most important broad image regions?" It masks the highly detailed IG pixels using LIME's human-interpretable superpixels to filter out noise.
+- **Concept-Based Explanation (TCAV)** answers: "How much did the model rely on learned clinical concepts?" It measures the similarity between the features in the input image and pre-learned signatures of concepts like osteophytes or joint space narrowing.
+- **Prototype-Based Explanation (ProtoPNet-inspired)** answers: "What known example is this case similar to?" It finds the learned clinical prototype that is most similar to the input to provide case-based reasoning.
+- **Concept SHAP** answers: "What is the positive or negative contribution of each clinical concept to the prediction?" It estimates the impact of concepts on the model's final confidence score.
 
 Grad-CAM results were obtained from the last convolutional layer of the
 [Xception](src/02_model_xception.ipynb) model.
