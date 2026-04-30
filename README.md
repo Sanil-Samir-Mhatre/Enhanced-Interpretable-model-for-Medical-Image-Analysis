@@ -275,18 +275,3 @@ Grad-CAM results were obtained from the last convolutional layer of the
 ![Severe](assets/Severe.png)
 
 > See [03_best_model_on_test_xception.ipynb](src/03_best_model_on_test_xception.ipynb)
-
-### Web application development with the best model
-
-The web application was developed using the **Xception model**, as it provides a good balance between performance and the ability to generate insightful Grad-CAM heatmaps. The app allows a user to upload an X-Ray image and receive a prediction, along with both Grad-CAM and LIME explanations.
-
-#### [pt-br] YouTube
-
-[![Análise da Gravidade de Artrose no Joelho](https://img.youtube.com/vi/gl28zQAs_rk/0.jpg)](https://www.youtube.com/watch?v=gl28zQAs_rk "Análise da Gravidade de Artrose no Joelho")
-
-## References
-
-- [Complex data mining](https://www.ic.unicamp.br/~mdc/) at
-  [unicamp](https://www.unicamp.br/unicamp/).
-- [Knee Osteoarthritis Dataset with Severity
-  Grading](https://www.kaggle.com/datasets/shashwatwork/knee-osteoarthritis-dataset-with-severity)
