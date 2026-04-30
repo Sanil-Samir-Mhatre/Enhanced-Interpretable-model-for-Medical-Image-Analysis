@@ -21,7 +21,7 @@ SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
 def load_app_model():
     """Loads and caches the Keras model and the Grad-CAM model."""
     model_path = os.path.join(SCRIPT_DIR, "..", "src", "models", "model_Xception_ft.hdf5")
-    model = tf.keras.models.load_model(model_path)
+    model = tf.keras.models.load_model(model_path, compile=False)
 
     # Create and cache the Grad-CAM model from the main model
     grad_model = tf.keras.models.Model(
