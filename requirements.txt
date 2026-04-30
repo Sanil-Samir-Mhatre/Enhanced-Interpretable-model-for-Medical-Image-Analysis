@@ -1,6 +1,6 @@
 streamlit
 tensorflow<2.16
-numpy
+numpy<2.0
 matplotlib
 scikit-image
 scikit-learn
