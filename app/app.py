@@ -933,12 +933,10 @@ if uploaded_file is not None:
                 if closest_prototype_image:
                     col1, col2, col3 = st.columns([2, 1, 2])
                     with col1:
-                        st.image(gradcam_image, caption="Input Image (Grad-CAM Focus)", width='stretch')
                         st.image(gradcam_image, caption="Input Image (Grad-CAM Focus)", use_column_width=True)
                     with col2:
                         st.markdown("<div style='display: flex; align-items: center; justify-content: center; height: 100%; font-size: 24px; font-weight: bold;'>→<br>looks like</div>", unsafe_allow_html=True)
                     with col3:
-                        st.image(closest_prototype_image, caption=f"Prototype: {top_concept_name.replace('_', ' ').title()}", width='stretch')
                         st.image(closest_prototype_image, caption=f"Prototype: {top_concept_name.replace('_', ' ').title()}", use_column_width=True)
                     
                     match_quality = "Strong Match" if top_score > 0.5 else "Moderate Match" if top_score > 0.2 else "Weak Match"
