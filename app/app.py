@@ -538,7 +538,7 @@ if uploaded_file is not None:
 
     # Display input image
     st.subheader("Input X-Ray")
-    st.image(original_image, caption="Uploaded X-Ray", width='stretch')
+    st.image(original_image, caption="Uploaded X-Ray", use_column_width=True)
 
     # Prepare images
     img_for_prediction = original_image.resize(target_size)
@@ -695,7 +695,7 @@ if uploaded_file is not None:
             }
 
 
-        st.image(gradcam_image, caption="Grad-CAM highlights where the model 'looked' for the prediction.", width='stretch')
+        st.image(gradcam_image, caption="Grad-CAM highlights where the model 'looked' for the prediction.", use_column_width=True)
         st.download_button(
             label="Download Grad-CAM Image",
             data=image_to_bytes(gradcam_image),
@@ -732,7 +732,7 @@ if uploaded_file is not None:
             }
 
 
-        st.image(ig_overlay_image, caption="Integrated Gradients highlights influential pixels for the prediction.", width='stretch')
+        st.image(ig_overlay_image, caption="Integrated Gradients highlights influential pixels for the prediction.", use_column_width=True)
         st.download_button(
             label="Download IG Image",
             data=image_to_bytes(ig_overlay_image),
@@ -776,7 +776,7 @@ if uploaded_file is not None:
         # Display both images
         col1, col2 = st.columns(2)
         with col1:
-            st.image(lime_superpixels_1, caption="LIME: Important superpixels isolated.", width='stretch')
+            st.image(lime_superpixels_1, caption="LIME: Important superpixels isolated.", use_column_width=True)
             st.download_button(
                 label="Download Superpixels Image",
                 data=image_to_bytes(lime_superpixels_1),
@@ -784,7 +784,7 @@ if uploaded_file is not None:
                 mime="image/png"
             )
         with col2:
-            st.image(lime_boundaries_1, caption="LIME: Important regions on original image.", width='stretch')
+            st.image(lime_boundaries_1, caption="LIME: Important regions on original image.", use_column_width=True)
             st.download_button(
                 label="Download Boundaries Image",
                 data=image_to_bytes(lime_boundaries_1),
@@ -809,7 +809,7 @@ if uploaded_file is not None:
                 'Compute Time (s)': f"{1/hybrid_fps:.4f}"
             }
 
-        st.image(hybrid_overlay_image, caption="Hybrid XAI: Fusing Grad-CAM spatial localization with IG pixel precision.", width='stretch')
+        st.image(hybrid_overlay_image, caption="Hybrid XAI: Fusing Grad-CAM spatial localization with IG pixel precision.", use_column_width=True)
         st.download_button(
             label="Download Hybrid Image",
             data=image_to_bytes(hybrid_overlay_image),
@@ -852,7 +852,7 @@ if uploaded_file is not None:
                 'Compute Time (s)': f"{1/hybrid2_fps:.4f} (Cached)"
             }
 
-        st.image(hybrid2_overlay_image, caption="Hybrid2: Integrated Gradients attribution strictly masked by LIME superpixels.", width='stretch')
+        st.image(hybrid2_overlay_image, caption="Hybrid2: Integrated Gradients attribution strictly masked by LIME superpixels.", use_column_width=True)
         st.download_button(
             label="Download Hybrid2 Image",
             data=image_to_bytes(hybrid2_overlay_image),
@@ -934,10 +934,12 @@ if uploaded_file is not None:
                     col1, col2, col3 = st.columns([2, 1, 2])
                     with col1:
                         st.image(gradcam_image, caption="Input Image (Grad-CAM Focus)", width='stretch')
+                        st.image(gradcam_image, caption="Input Image (Grad-CAM Focus)", use_column_width=True)
                     with col2:
                         st.markdown("<div style='display: flex; align-items: center; justify-content: center; height: 100%; font-size: 24px; font-weight: bold;'>→<br>looks like</div>", unsafe_allow_html=True)
                     with col3:
                         st.image(closest_prototype_image, caption=f"Prototype: {top_concept_name.replace('_', ' ').title()}", width='stretch')
+                        st.image(closest_prototype_image, caption=f"Prototype: {top_concept_name.replace('_', ' ').title()}", use_column_width=True)
                     
                     match_quality = "Strong Match" if top_score > 0.5 else "Moderate Match" if top_score > 0.2 else "Weak Match"
                     st.caption(f"Similarity Score: {top_score:.4f} ({match_quality})")
