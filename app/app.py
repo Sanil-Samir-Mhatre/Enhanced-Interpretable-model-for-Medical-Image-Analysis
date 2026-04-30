@@ -5,6 +5,7 @@ import numpy as np
 import time
 import os
 import streamlit as st 
+os.environ["TF_USE_LEGACY_KERAS"] = "1"
 import tensorflow as tf
 from PIL import Image
 from lime import lime_image

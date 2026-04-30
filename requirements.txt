@@ -1,8 +1,11 @@
 streamlit
-tensorflow==2.10.0
-numpy==1.23.3
-matplotlib==3.6.0
-scikit-image==0.19.3
-scikit-learn==1.1.2
+tensorflow
+numpy
+matplotlib
+scikit-image
+scikit-learn
 lime
-Pillow==9.2.0
+Pillow
+pandas
+altair
+tf-keras
