@@ -1,3 +1,4 @@
+import matplotlib
 import matplotlib.cm as cm
 import matplotlib.pyplot as plt
 import altair as alt
@@ -60,7 +61,7 @@ def save_and_display_gradcam(original_img, heatmap, alpha=0.4):
 
     heatmap = np.uint8(255 * heatmap)
 
-    jet = cm.get_cmap("jet")
+    jet = matplotlib.colormaps["jet"]
 
     jet_colors = jet(np.arange(256))[:, :3]
     jet_heatmap = jet_colors[heatmap]
@@ -187,7 +188,7 @@ def overlay_heatmap(original_img, heatmap, alpha=0.5, colormap_name="viridis"):
     heatmap = np.uint8(255 * heatmap)
 
     # Use a colormap to colorize the heatmap
-    colormap = cm.get_cmap(colormap_name)
+    colormap = matplotlib.colormaps[colormap_name]
     colored_heatmap = colormap(heatmap)[:, :, :3]  # Get RGB values
     colored_heatmap = np.uint8(255 * colored_heatmap)
 
@@ -514,6 +515,9 @@ with st.sidebar:
     st.subheader("Upload image")
     uploaded_file = st.file_uploader("Choose x-ray image")
 
+    st.markdown("---")
+    st.markdown("**Developed by:**<br>Sanil Mhatre as a part of 3rd Year Academic Project with<br>Pranjali Sawant, Vaidehi Sankaye and Ishaan Vivrekar", unsafe_allow_html=True)
+
 # Body
 st.header("Severity Analysis of Osteoarthritis in the Knee")
 
@@ -538,7 +542,6 @@ if uploaded_file is not None:
 
     # Display input image
     st.subheader("Input X-Ray")
-    st.image(original_image, caption="Uploaded X-Ray", width='stretch')
     st.image(original_image, caption="Uploaded X-Ray", use_column_width=True)
 
     # Prepare images
@@ -696,7 +699,6 @@ if uploaded_file is not None:
             }
 
 
-        st.image(gradcam_image, caption="Grad-CAM highlights where the model 'looked' for the prediction.", width='stretch')
         st.image(gradcam_image, caption="Grad-CAM highlights where the model 'looked' for the prediction.", use_column_width=True)
         st.download_button(
             label="Download Grad-CAM Image",
@@ -734,7 +736,6 @@ if uploaded_file is not None:
             }
 
 
-        st.image(ig_overlay_image, caption="Integrated Gradients highlights influential pixels for the prediction.", width='stretch')
         st.image(ig_overlay_image, caption="Integrated Gradients highlights influential pixels for the prediction.", use_column_width=True)
         st.download_button(
             label="Download IG Image",
@@ -779,7 +780,6 @@ if uploaded_file is not None:
         # Display both images
         col1, col2 = st.columns(2)
         with col1:
-            st.image(lime_superpixels_1, caption="LIME: Important superpixels isolated.", width='stretch')
             st.image(lime_superpixels_1, caption="LIME: Important superpixels isolated.", use_column_width=True)
             st.download_button(
                 label="Download Superpixels Image",
@@ -788,7 +788,6 @@ if uploaded_file is not None:
                 mime="image/png"
             )
         with col2:
-            st.image(lime_boundaries_1, caption="LIME: Important regions on original image.", width='stretch')
             st.image(lime_boundaries_1, caption="LIME: Important regions on original image.", use_column_width=True)
             st.download_button(
                 label="Download Boundaries Image",
@@ -814,7 +813,6 @@ if uploaded_file is not None:
                 'Compute Time (s)': f"{1/hybrid_fps:.4f}"
             }
 
-        st.image(hybrid_overlay_image, caption="Hybrid XAI: Fusing Grad-CAM spatial localization with IG pixel precision.", width='stretch')
         st.image(hybrid_overlay_image, caption="Hybrid XAI: Fusing Grad-CAM spatial localization with IG pixel precision.", use_column_width=True)
         st.download_button(
             label="Download Hybrid Image",
@@ -858,7 +856,6 @@ if uploaded_file is not None:
                 'Compute Time (s)': f"{1/hybrid2_fps:.4f} (Cached)"
             }
 
-        st.image(hybrid2_overlay_image, caption="Hybrid2: Integrated Gradients attribution strictly masked by LIME superpixels.", width='stretch')
         st.image(hybrid2_overlay_image, caption="Hybrid2: Integrated Gradients attribution strictly masked by LIME superpixels.", use_column_width=True)
         st.download_button(
             label="Download Hybrid2 Image",
@@ -940,12 +937,10 @@ if uploaded_file is not None:
                 if closest_prototype_image:
                     col1, col2, col3 = st.columns([2, 1, 2])
                     with col1:
-                        st.image(gradcam_image, caption="Input Image (Grad-CAM Focus)", width='stretch')
                         st.image(gradcam_image, caption="Input Image (Grad-CAM Focus)", use_column_width=True)
                     with col2:
                         st.markdown("<div style='display: flex; align-items: center; justify-content: center; height: 100%; font-size: 24px; font-weight: bold;'>→<br>looks like</div>", unsafe_allow_html=True)
                     with col3:
-                        st.image(closest_prototype_image, caption=f"Prototype: {top_concept_name.replace('_', ' ').title()}", width='stretch')
                         st.image(closest_prototype_image, caption=f"Prototype: {top_concept_name.replace('_', ' ').title()}", use_column_width=True)
                     
                     match_quality = "Strong Match" if top_score > 0.5 else "Moderate Match" if top_score > 0.2 else "Weak Match"
