@@ -542,7 +542,7 @@ if uploaded_file is not None:
 
     # Display input image
     st.subheader("Input X-Ray")
-    st.image(original_image, caption="Uploaded X-Ray", use_column_width=True)
+    st.image(original_image, caption="Uploaded X-Ray", width='stretch')
 
     # Prepare images
     img_for_prediction = original_image.resize(target_size)
@@ -653,7 +653,7 @@ if uploaded_file is not None:
         
         # Apply softmax to convert logits to probabilities, then multiply by 100
         y_pred_probs = tf.nn.softmax(y_pred_raw[0]).numpy()
-        y_pred_percent = 100 * y_pred_probs
+        y_pred_percent = y_pred_probs
         probability = np.amax(y_pred_percent)
         kl_grade_index = np.argmax(y_pred_percent)
         grade_name = class_names[kl_grade_index]
@@ -678,7 +678,7 @@ if uploaded_file is not None:
             y='Confidence (%)',
             color=color_condition
         )
-        st.altair_chart(chart, use_container_width=True)
+        st.altair_chart(chart, width='stretch')
 
         # --- XAI Section ---
         st.markdown("---")
@@ -699,7 +699,7 @@ if uploaded_file is not None:
             }
 
 
-        st.image(gradcam_image, caption="Grad-CAM highlights where the model 'looked' for the prediction.", use_column_width=True)
+        st.image(gradcam_image, caption="Grad-CAM highlights where the model 'looked' for the prediction.", width='stretch')
         st.download_button(
             label="Download Grad-CAM Image",
             data=image_to_bytes(gradcam_image),
@@ -719,7 +719,7 @@ if uploaded_file is not None:
             with chart_tab:
                 st.bar_chart(zone_df.set_index("Anatomical Zone"))
             with table_tab:
-                st.dataframe(zone_df, use_container_width=True)
+                st.dataframe(zone_df, width='stretch')
 
         # --- 3. Integrated Gradients Explanation ---
         st.subheader("2. Integrated Gradients Explanation")
@@ -736,7 +736,7 @@ if uploaded_file is not None:
             }
 
 
-        st.image(ig_overlay_image, caption="Integrated Gradients highlights influential pixels for the prediction.", use_column_width=True)
+        st.image(ig_overlay_image, caption="Integrated Gradients highlights influential pixels for the prediction.", width='stretch')
         st.download_button(
             label="Download IG Image",
             data=image_to_bytes(ig_overlay_image),
@@ -755,7 +755,7 @@ if uploaded_file is not None:
             with chart_tab:
                 st.bar_chart(zone_df.set_index("Anatomical Zone"))
             with table_tab:
-                st.dataframe(zone_df, use_container_width=True)
+                st.dataframe(zone_df, width='stretch')
 
         # --- 4. LIME Explanation ---
         st.subheader("3. Superpixel-based Explanation using LIME)")
@@ -780,7 +780,7 @@ if uploaded_file is not None:
         # Display both images
         col1, col2 = st.columns(2)
         with col1:
-            st.image(lime_superpixels_1, caption="LIME: Important superpixels isolated.", use_column_width=True)
+            st.image(lime_superpixels_1, caption="LIME: Important superpixels isolated.", width='stretch')
             st.download_button(
                 label="Download Superpixels Image",
                 data=image_to_bytes(lime_superpixels_1),
@@ -788,7 +788,7 @@ if uploaded_file is not None:
                 mime="image/png"
             )
         with col2:
-            st.image(lime_boundaries_1, caption="LIME: Important regions on original image.", use_column_width=True)
+            st.image(lime_boundaries_1, caption="LIME: Important regions on original image.", width='stretch')
             st.download_button(
                 label="Download Boundaries Image",
                 data=image_to_bytes(lime_boundaries_1),
@@ -813,7 +813,7 @@ if uploaded_file is not None:
                 'Compute Time (s)': f"{1/hybrid_fps:.4f}"
             }
 
-        st.image(hybrid_overlay_image, caption="Hybrid XAI: Fusing Grad-CAM spatial localization with IG pixel precision.", use_column_width=True)
+        st.image(hybrid_overlay_image, caption="Hybrid XAI: Fusing Grad-CAM spatial localization with IG pixel precision.", width='stretch')
         st.download_button(
             label="Download Hybrid Image",
             data=image_to_bytes(hybrid_overlay_image),
@@ -833,7 +833,7 @@ if uploaded_file is not None:
             with chart_tab:
                 st.bar_chart(zone_df.set_index("Anatomical Zone"))
             with table_tab:
-                st.dataframe(zone_df, use_container_width=True)
+                st.dataframe(zone_df, width='stretch')
 
         # --- 5. Hybrid XAI #2 (IG + LIME) ---
         st.subheader("5. Hybrid XAI no. 2 (Integrated Gradients + LIME)")
@@ -856,7 +856,7 @@ if uploaded_file is not None:
                 'Compute Time (s)': f"{1/hybrid2_fps:.4f} (Cached)"
             }
 
-        st.image(hybrid2_overlay_image, caption="Hybrid2: Integrated Gradients attribution strictly masked by LIME superpixels.", use_column_width=True)
+        st.image(hybrid2_overlay_image, caption="Hybrid2: Integrated Gradients attribution strictly masked by LIME superpixels.", width='stretch')
         st.download_button(
             label="Download Hybrid2 Image",
             data=image_to_bytes(hybrid2_overlay_image),
@@ -875,7 +875,7 @@ if uploaded_file is not None:
             with chart_tab:
                 st.bar_chart(zone_df.set_index("Anatomical Zone"))
             with table_tab:
-                st.dataframe(zone_df, use_container_width=True)
+                st.dataframe(zone_df, width='stretch')
 
         # --- 6. Quantitative Concept-Based Explanation (TCAV) ---
         st.subheader("6. Concept-Based Explanation (TCAV)")
@@ -937,11 +937,11 @@ if uploaded_file is not None:
                 if closest_prototype_image:
                     col1, col2, col3 = st.columns([2, 1, 2])
                     with col1:
-                        st.image(gradcam_image, caption="Input Image (Grad-CAM Focus)", use_column_width=True)
+                        st.image(gradcam_image, caption="Input Image (Grad-CAM Focus)", width='stretch')
                     with col2:
                         st.markdown("<div style='display: flex; align-items: center; justify-content: center; height: 100%; font-size: 24px; font-weight: bold;'>→<br>looks like</div>", unsafe_allow_html=True)
                     with col3:
-                        st.image(closest_prototype_image, caption=f"Prototype: {top_concept_name.replace('_', ' ').title()}", use_column_width=True)
+                        st.image(closest_prototype_image, caption=f"Prototype: {top_concept_name.replace('_', ' ').title()}", width='stretch')
                     
                     match_quality = "Strong Match" if top_score > 0.5 else "Moderate Match" if top_score > 0.2 else "Weak Match"
                     st.caption(f"Similarity Score: {top_score:.4f} ({match_quality})")
@@ -989,7 +989,7 @@ if uploaded_file is not None:
                     alt.value("red")
                 )
             ).properties(title="Concept Contribution to Prediction")
-            st.altair_chart(shap_chart, use_container_width=True)
+            st.altair_chart(shap_chart, width='stretch')
 
 st.markdown("---")
 st.subheader("Kellgren-Lawrence (KL) Grade Descriptions")
